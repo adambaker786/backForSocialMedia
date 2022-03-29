@@ -10,11 +10,11 @@ module.exports.userController = {
       const searchLogin = await User.findOne({ login });
       const searchEmail = await User.findOne({ email });
       if (searchEmail) {
-        return res.json("Такой email уже существует");
+        return res.status(401).json("Такой email уже существует");
       } else if (searchLogin) {
-        return res.json("Такой логин уже существует");
+        return res.status(401).json("Такой логин уже существует");
       } else if (password !== passwordValid) {
-        return res.json("Пароли не совпадают");
+        return res.status(401).json("Пароли не совпадают");
       }
 
       const hash = await bcrypt.hash(
@@ -27,13 +27,16 @@ module.exports.userController = {
         login,
         email,
         password: hash,
+        avatar: req.file ? req.file.path : "",
       });
       if (!registeredUser) {
-        return res.json(
-          "ошибка регистрации, пожалуйста проверьте правильность введенных данных"
-        );
+        return res
+          .status(401)
+          .json(
+            "ошибка регистрации, пожалуйста проверьте правильность введенных данных"
+          );
       }
-      res.json("Регистрация прошла успешно");
+      res.status(201).json("Регистрация прошла успешно");
     } catch (error) {
       res.json({ error: error.toString() });
     }
@@ -82,6 +85,7 @@ module.exports.userController = {
         lastname,
         login,
         email,
+        avatar: req.file ? req.file.path : "",
       });
 
       const searchLogin = await User.findOne({ login });
