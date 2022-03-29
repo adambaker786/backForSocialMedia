@@ -32,6 +32,11 @@ const userSchema = mongoose.Schema({
     required: true,
   },
 
+  avatar: {
+    type: String,
+    default: "",
+  },
+
   registredDate: {
     type: String,
     default: moment().format("LLLL"),
