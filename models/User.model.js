@@ -1,0 +1,43 @@
+const moment = require("moment");
+const mongoose = require("mongoose");
+
+const userSchema = mongoose.Schema({
+  firstname: {
+    type: String,
+    required: true,
+  },
+
+  lastname: {
+    type: String,
+    required: true,
+  },
+
+  login: {
+    type: String,
+    required: true,
+  },
+
+  email: {
+    type: String,
+    required: true,
+  },
+
+  password: {
+    type: String,
+    required: true,
+  },
+
+  passwordValid: {
+    type: String,
+    required: true,
+  },
+
+  registredDate: {
+    type: String,
+    default: moment().format("LLLL"),
+  },
+});
+
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
