@@ -37,6 +37,16 @@ const userSchema = mongoose.Schema({
     default: "",
   },
 
+  role: {
+    type: String,
+    default: "user",
+  },
+
+  freinds: {
+    type: Object,
+    default: [],
+  },
+
   registredDate: {
     type: String,
     default: moment().format("LLLL"),
