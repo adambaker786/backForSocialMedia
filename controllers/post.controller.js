@@ -32,7 +32,7 @@ module.exports.postController = {
 
   addLikePost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.id).populate("user");
       const saves = await Saves.findOne({ user: req.user.id });
 
       if (!post) {
@@ -44,7 +44,7 @@ module.exports.postController = {
       await Post.findByIdAndUpdate(post._id, {
         $addToSet: { likes: req.user.id },
       });
-      res.status(201).json("успешно");
+      res.status(201).json(post);
     } catch (error) {
       res.status(401).json({ error });
     }
