@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/posts", postController.getPosts);
 router.get("/post", postController.getPost);
-router.get("/user/posts", postController.getPostOneUser);
+router.get("/user/posts/:id", postController.getPostOneUser);
 
 router.post("/post", applyMiddleware, postImage, postController.addPost);
 
