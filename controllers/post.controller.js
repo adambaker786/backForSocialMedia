@@ -1,4 +1,5 @@
 const Post = require("../models/Posts.model");
+const Saves = require("../models/Saves.model");
 
 module.exports.postController = {
   addPost: async (req, res) => {
@@ -35,8 +36,10 @@ module.exports.postController = {
       if (!post) {
         return req.status(401).json("ошибка");
       }
-
-      await Post.findByIdAndUpdate(post._id, {
+      await Saves.findByIdAndUpdate(req.params.id, {
+        $addToSet: { saves: req.body.id },
+      });
+      await await Post.findByIdAndUpdate(post._id, {
         $addToSet: { likes: req.user.id },
       });
       res.status(201).json("успешно");
@@ -51,6 +54,9 @@ module.exports.postController = {
       if (!post) {
         return req.status(401).json("ошибка");
       }
+      await Saves.findByIdAndUpdate(req.params.id, {
+        $pull: { saves: req.body.id },
+      });
 
       await Post.findByIdAndUpdate(post._id, {
         $pull: { likes: req.user.id },
