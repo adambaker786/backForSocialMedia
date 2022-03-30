@@ -1,4 +1,5 @@
 const User = require("../models/User.model");
+const Saves = require("../models/Saves.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -32,6 +33,7 @@ module.exports.userController = {
         avatar: req.file ? req.file.path : "",
         role,
       });
+
       if (!registeredUser) {
         return res
           .status(401)
@@ -39,6 +41,10 @@ module.exports.userController = {
             "ошибка регистрации, пожалуйста проверьте правильность введенных данных"
           );
       }
+
+      await Saves.create({
+        user: req.user.id,
+      });
       res.status(201).json("Регистрация прошла успешно");
     } catch (error) {
       res.json({ error: error.toString() });
