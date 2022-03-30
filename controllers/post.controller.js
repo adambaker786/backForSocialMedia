@@ -1,4 +1,3 @@
-const { findById } = require("../models/Posts.model");
 const Post = require("../models/Posts.model");
 
 module.exports.postController = {

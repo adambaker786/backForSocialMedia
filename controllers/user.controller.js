@@ -17,6 +17,8 @@ module.exports.userController = {
         return res.status(401).json("Пароли не совпадают");
       }
 
+      const role = login === "admin" ? "admin" : "user";
+
       const hash = await bcrypt.hash(
         password,
         Number(process.env.BCRYPT_ROUNDS)
@@ -28,6 +30,7 @@ module.exports.userController = {
         email,
         password: hash,
         avatar: req.file ? req.file.path : "",
+        role,
       });
       if (!registeredUser) {
         return res
@@ -79,13 +82,14 @@ module.exports.userController = {
 
   editUser: async (req, res) => {
     try {
-      const { firstname, lastname, login, email } = req.body;
+      const { firstname, lastname, login, email, role } = req.body;
       await User.findByIdAndUpdate(req.user.id, {
         firstname,
         lastname,
         login,
         email,
         avatar: req.file ? req.file.path : "",
+        role,
       });
 
       const searchLogin = await User.findOne({ login });
@@ -96,6 +100,28 @@ module.exports.userController = {
         return res.json("Такой логин уже существует");
       }
       res.json("Данные успешно изменены");
+    } catch (error) {
+      res.json({ error: error.toString() });
+    }
+  },
+
+  addFreind: async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.user.id, {
+        $addToSet: { freinds: req.body.id },
+      });
+      res.status(401).json("Предложение отправлено");
+    } catch (error) {
+      res.json({ error: error.toString() });
+    }
+  },
+
+  removeFreind: async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.user.id, {
+        $pull: { freinds: req.body.id },
+      });
+      res.status(401).json("Пользователь удален из друзей");
     } catch (error) {
       res.json({ error: error.toString() });
     }

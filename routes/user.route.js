@@ -17,5 +17,7 @@ router.patch(
   avatarLoadMiddleware.single("avatar"),
   userController.editUser
 );
+router.patch("/add/freind", applyMiddleware, userController.addFreind);
+router.patch("/add/freind", applyMiddleware, userController.removeFreind);
 
 module.exports = router;
