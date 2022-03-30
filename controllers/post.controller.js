@@ -33,13 +33,15 @@ module.exports.postController = {
   addLikePost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
+      const saves = await Saves.findOne({ user: req.user.id });
+
       if (!post) {
         return req.status(401).json("ошибка");
       }
-      await Saves.findByIdAndUpdate(req.params.id, {
-        $addToSet: { saves: req.body.id },
+      await Saves.findByIdAndUpdate(saves._id, {
+        $addToSet: { saves: post._id },
       });
-      await await Post.findByIdAndUpdate(post._id, {
+      await Post.findByIdAndUpdate(post._id, {
         $addToSet: { likes: req.user.id },
       });
       res.status(201).json("успешно");
@@ -51,11 +53,12 @@ module.exports.postController = {
   removeLikePost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
+      const saves = await Saves.findOne({ user: req.user.id });
       if (!post) {
         return req.status(401).json("ошибка");
       }
-      await Saves.findByIdAndUpdate(req.params.id, {
-        $pull: { saves: req.body.id },
+      await Saves.findByIdAndUpdate(saves._id, {
+        $pull: { saves: post._id },
       });
 
       await Post.findByIdAndUpdate(post._id, {
