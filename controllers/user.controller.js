@@ -40,7 +40,7 @@ module.exports.userController = {
       }
 
       await Saves.create({
-        user: req.user.id,
+        user: registeredUser._id,
       });
       res.status(201).json("Регистрация прошла успешно");
     } catch (error) {
