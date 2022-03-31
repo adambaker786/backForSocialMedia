@@ -12,7 +12,7 @@ module.exports.messageControllers = {
             res.status(200).json(saveMessage)
         }
         catch(err){
-            req.status(500).json(err.toString())
+            res.status(500).json(err.toString())
         }
     },
     getMessages: async (req, res)=>{
@@ -23,7 +23,7 @@ module.exports.messageControllers = {
             res.status(200).json(messages)
         }
         catch(err){
-            req.status(500).json(err.toString())
+            res.status(500).json(err.toString())
         }
     }
 }

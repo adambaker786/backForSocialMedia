@@ -62,4 +62,13 @@ module.exports.groupController = {
       res.status(401).json({ error: error.toString() });
     }
   },
+
+  getGroups: async (req, res) => {
+    try {
+      const groups = await Group.find().populate("user");
+      res.status(201).json(groups);
+    } catch (error) {
+      res.status(401).json({ error: error.toString() });
+    }
+  },
 };

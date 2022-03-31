@@ -26,7 +26,9 @@ module.exports.notificationController = {
 
   getNotificationOneUser: async (req, res) => {
     try {
-      const userNotification = await Notification.find({ user: req.user.id });
+      const userNotification = await Notification.find({
+        user: req.user.id,
+      }).populate("fromUser");
       res.status(201).json(userNotification);
     } catch (error) {
       res.status(401).json({ error: error.toString() });

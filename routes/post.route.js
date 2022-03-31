@@ -9,9 +9,19 @@ router.get("/posts", postController.getPosts);
 router.get("/post", postController.getPost);
 router.get("/user/posts/:id", postController.getPostOneUser);
 
-router.post("/post", applyMiddleware, postImage, postController.addPost);
+router.post(
+  "/post",
+  applyMiddleware,
+  postImage.single(),
+  postController.addPost
+);
 
-router.patch("/post/:id", applyMiddleware, postImage, postController.editPost);
+router.patch(
+  "/post/:id",
+  applyMiddleware,
+  postImage.single(),
+  postController.editPost
+);
 router.patch("/add/like/:id", applyMiddleware, postController.addLikePost);
 router.patch(
   "/remove/like/:id",
