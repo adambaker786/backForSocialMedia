@@ -12,14 +12,14 @@ router.get("/user/posts/:id", postController.getPostOneUser);
 router.post(
   "/post",
   applyMiddleware,
-  postImage.single(),
+  postImage.single("image"),
   postController.addPost
 );
 
 router.patch(
   "/post/:id",
   applyMiddleware,
-  postImage.single(),
+  postImage.single("image"),
   postController.editPost
 );
 router.patch("/add/like/:id", applyMiddleware, postController.addLikePost);
