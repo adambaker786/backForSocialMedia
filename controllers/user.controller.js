@@ -6,16 +6,13 @@ const jwt = require("jsonwebtoken");
 module.exports.userController = {
   registerUser: async (req, res) => {
     try {
-      const { firstname, lastname, login, email, password, passwordValid } =
-        req.body;
+      const { firstname, lastname, login, email, password } = req.body;
       const searchLogin = await User.findOne({ login });
       const searchEmail = await User.findOne({ email });
       if (searchEmail) {
         return res.status(401).json("Такой email уже существует");
       } else if (searchLogin) {
         return res.status(401).json("Такой логин уже существует");
-      } else if (password !== passwordValid) {
-        return res.status(401).json("Пароли не совпадают");
       }
 
       const role = login === "admin" ? "admin" : "user";
