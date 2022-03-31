@@ -43,7 +43,7 @@ module.exports.groupController = {
     try {
       const nameGroup = await Group.findById(req.params.id);
       await Group.findByIdAndUpdate(req.params.id, {
-        $addToSet: { users: req.body.id },
+        $addToSet: { users: req.user.id },
       });
       res.status(201).json(`Вы вступили в ${nameGroup.name}`);
     } catch (error) {
@@ -55,7 +55,7 @@ module.exports.groupController = {
     try {
       const nameGroup = await Group.findById(req.params.id);
       await Group.findByIdAndUpdate(req.params.id, {
-        $pull: { users: req.body.id },
+        $pull: { users: req.user.id },
       });
       res.status(201).json(`Вы вышли из ${nameGroup.name}`);
     } catch (error) {
