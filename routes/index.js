@@ -9,7 +9,7 @@ const importSaves = require("./saves.route");
 
 const router = Router();
 
-router.use(importUser);
+// router.use(importUser);
 router.use(importPost);
 router.use(importNotification);
 router.use(importComments);

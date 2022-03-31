@@ -10,7 +10,7 @@ module.exports.postController = {
         text,
         user: req.user.id,
       });
-      req.status(201).json(post);
+      res.status(201).json(post);
     } catch (error) {
       res.status(401).json({ error });
     }
@@ -36,7 +36,7 @@ module.exports.postController = {
       const saves = await Saves.findOne({ user: req.user.id });
 
       if (!post) {
-        return req.status(401).json("ошибка");
+        return res.status(401).json("ошибка");
       }
       await Saves.findByIdAndUpdate(saves._id, {
         $addToSet: { saves: post._id },
@@ -55,7 +55,7 @@ module.exports.postController = {
       const post = await Post.findById(req.params.id).populate("user");
       const saves = await Saves.findOne({ user: req.user.id });
       if (!post) {
-        return req.status(401).json("ошибка");
+        return res.status(401).json("ошибка");
       }
       await Saves.findByIdAndUpdate(saves._id, {
         $pull: { saves: post._id },

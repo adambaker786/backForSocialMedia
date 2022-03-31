@@ -152,7 +152,7 @@ module.exports.userController = {
       const users = await User.find();
       res.json(users);
     } catch (error) {
-      res.jsoN({ error: error.toString() });
+      res.json({ error: error.toString() });
     }
   },
 };
