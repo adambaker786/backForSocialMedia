@@ -10,7 +10,7 @@ router.get("/users", userController.getUsers);
 
 router.post(
   "/user/signup",
-  avatarLoadMiddleware.single(),
+  avatarLoadMiddleware.single("avatar"),
   userController.registerUser
 );
 router.post("/user/signin", userController.loginUser);
@@ -18,7 +18,7 @@ router.post("/user/signin", userController.loginUser);
 router.patch(
   "/user",
   applyMiddleware,
-  avatarLoadMiddleware.single(),
+  avatarLoadMiddleware.single("avatar"),
   userController.editUser
 );
 router.patch("/add/freind", applyMiddleware, userController.addFreind);

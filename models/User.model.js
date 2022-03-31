@@ -27,11 +27,6 @@ const userSchema = mongoose.Schema({
     required: true,
   },
 
-  passwordValid: {
-    type: String,
-    required: true,
-  },
-
   avatar: {
     type: String,
     default: "",
