@@ -8,11 +8,7 @@ const router = Router();
 router.get("/user", userController.getUser);
 router.get("/users", userController.getUsers);
 
-router.post(
-  "/user/signup",
-  avatarLoadMiddleware.single("avatar"),
-  userController.registerUser
-);
+router.post("/user/signup", userController.registerUser);
 router.post("/user/signin", userController.loginUser);
 
 router.patch(
