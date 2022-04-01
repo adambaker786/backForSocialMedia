@@ -4,7 +4,7 @@ module.exports.messageControllers = {
     postMessage: async (req, res)=>{
         const {conversationId, text}= req.body
         try{
-            const saveMessage = await Message.save({
+            const saveMessage = await Message.create({
                 conversationId,
                 sender: req.user.id,
                 text
@@ -20,6 +20,7 @@ module.exports.messageControllers = {
             const messages = await Message.find({
                 conversationId: req.params.id
             })
+            console.log(messages)
             res.status(200).json(messages)
         }
         catch(err){
