@@ -55,7 +55,7 @@ module.exports.postController = {
 
   removeLikePost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id).populate("user");
+      const post = await Post.findById(req.params.id).populate("likes");
       const saves = await Saves.findOne({ user: req.user.id });
       const user = await User.findOne({ _id: req.user.id });
 
@@ -86,7 +86,9 @@ module.exports.postController = {
 
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id).populate("user");
+      const post = await Post.findById(req.params.id)
+        .populate("user")
+        .populate("likes");
       res.status(201).json(post);
     } catch (error) {
       res.status(401).json({ error });
@@ -95,7 +97,7 @@ module.exports.postController = {
 
   getPosts: async (req, res) => {
     try {
-      const posts = await Post.find().populate("user");
+      const posts = await Post.find().populate("user").populate("likes");
       res.status(201).json(posts);
     } catch (error) {
       res.status(401).json({ error });
@@ -104,9 +106,9 @@ module.exports.postController = {
 
   getPostOneUser: async (req, res) => {
     try {
-      const postsUser = await Post.find({ user: req.params.id }).populate(
-        "user"
-      );
+      const postsUser = await Post.find({ user: req.params.id })
+        .populate("user")
+        .populate("likes");
       res.status(201).json(postsUser);
     } catch (error) {
       res.status(401).json({ error });
