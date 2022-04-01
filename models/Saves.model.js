@@ -5,7 +5,7 @@ const savesSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "User",
   },
-  saves: [],
+  saves: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
 });
 
 const Saves = mongoose.model("Saves", savesSchema);

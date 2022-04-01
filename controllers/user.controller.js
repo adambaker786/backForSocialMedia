@@ -88,17 +88,12 @@ module.exports.userController = {
 
   editUser: async (req, res) => {
     try {
-      const { firstname, lastname, login, email, role } = req.body;
       await User.findByIdAndUpdate(req.user.id, {
-        firstname,
-        lastname,
-        login,
-        email,
-        avatar: req.file ? req.file.path : "",
-        role,
+        ...req.body,
       });
 
       const searchLogin = await User.findOne({ login });
+
       const searchEmail = await User.findOne({ email });
       if (searchEmail) {
         return res.json("Такой email уже существует");
@@ -135,7 +130,7 @@ module.exports.userController = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.user.id);
 
       res.json({
         id: req.user.id,
