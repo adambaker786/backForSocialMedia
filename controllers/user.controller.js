@@ -27,7 +27,6 @@ module.exports.userController = {
         login,
         email,
         password: hash,
-        avatar: req.file ? req.file.path : "",
         role,
       });
 
@@ -137,7 +136,7 @@ module.exports.userController = {
   getUser: async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
-      
+
       res.json({
         id: req.user.id,
         login: user.login,
@@ -148,7 +147,7 @@ module.exports.userController = {
     } catch (error) {
       res.json({ error: error.toString() });
     }
-  }, 
+  },
 
   getUsers: async (req, res) => {
     try {
