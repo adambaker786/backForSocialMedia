@@ -34,12 +34,11 @@ module.exports.postController = {
     try {
       const post = await Post.findById(req.params.id).populate("user");
       const saves = await Saves.findOne({ user: req.user.id });
-      console.log(saves);
+
       if (!post) {
         return res.status(401).json("ошибка");
       }
 
-      console.log(1);
       await Saves.findByIdAndUpdate(saves._id, {
         $addToSet: { saves: post._id },
       });
@@ -48,7 +47,7 @@ module.exports.postController = {
       });
       res.status(201).json(post);
     } catch (error) {
-      res.status(401).json({ error: error.toString() });
+      res.status(401).json({ error });
     }
   },
 
