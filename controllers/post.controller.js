@@ -38,6 +38,8 @@ module.exports.postController = {
       if (!post) {
         return res.status(401).json("ошибка");
       }
+
+      
       await Saves.findByIdAndUpdate(saves._id, {
         $addToSet: { saves: post._id },
       });
