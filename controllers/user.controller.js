@@ -76,6 +76,7 @@ module.exports.userController = {
       });
       res.json({
         token,
+        id: candidate._id,
         login: payload.login,
         firstname: payload.firstname,
         lastname: payload.lastname,
@@ -135,8 +136,10 @@ module.exports.userController = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User.findById(req.user.id);
+      const user = await User.findById(req.params.id);
+      
       res.json({
+        id: req.user.id,
         login: user.login,
         firstname: user.firstname,
         lastname: user.lastname,
@@ -145,7 +148,7 @@ module.exports.userController = {
     } catch (error) {
       res.json({ error: error.toString() });
     }
-  },
+  }, 
 
   getUsers: async (req, res) => {
     try {
