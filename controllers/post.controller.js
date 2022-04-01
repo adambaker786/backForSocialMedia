@@ -41,11 +41,11 @@ module.exports.postController = {
         return res.status(401).json("ошибка");
       }
 
-      await Saves.findByIdAndUpdate(saves._id, {
-        $addToSet: { saves: post._id },
-      });
       await Post.findByIdAndUpdate(post._id, {
         $addToSet: { likes: user._id },
+      });
+      await Saves.findByIdAndUpdate(saves._id, {
+        $addToSet: { saves: post._id },
       });
       res.status(201).json(post);
     } catch (error) {
@@ -62,12 +62,11 @@ module.exports.postController = {
       if (!post) {
         return res.status(401).json("ошибка");
       }
-      await Saves.findByIdAndUpdate(saves._id, {
-        $pull: { saves: post._id },
-      });
-
       await Post.findByIdAndUpdate(post._id, {
         $pull: { likes: user._id },
+      });
+      await Saves.findByIdAndUpdate(saves._id, {
+        $pull: { saves: post._id },
       });
       res.status(201).json(post);
     } catch (error) {
