@@ -1,19 +1,23 @@
 const multer = require("multer");
+const moment = require("moment");
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "assets/avatars/");
+    cb(null, "assets/");
   },
 
   filename(req, file, cb) {
-    cb(null, new Date().toISOString() + "-" + file.originalname);
+    const date = moment().format("DDMMYYYY-HHmmss_SSS");
+    cb(null, `${date}-${file.originalname}`);
   },
 });
 
-const types = ["avatar/png", "avatar/jpg", "avatar/jpeg"];
-
 const fileFilter = (req, file, cb) => {
-  if (types.includes(file.mimetype)) {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/jpg"
+  ) {
     cb(null, true);
   } else {
     cb(null, false);

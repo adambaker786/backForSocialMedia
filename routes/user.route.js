@@ -15,7 +15,7 @@ router.post("/user/signin", userController.loginUser);
 router.patch(
   "/user",
   applyMiddleware,
-  avatarLoadMiddleware.single("avatar"),
+  avatarLoadMiddleware.single("image"),
   userController.editUser
 );
 router.patch("/add/freind", applyMiddleware, userController.addFreind);
