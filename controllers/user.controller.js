@@ -27,6 +27,7 @@ module.exports.userController = {
         login,
         email,
         password: hash,
+        avatar: req.file ? req.file.path : "",
         role,
       });
 
@@ -88,19 +89,14 @@ module.exports.userController = {
 
   editUser: async (req, res) => {
     try {
-      await User.findByIdAndUpdate(req.user.id, {
+      const { id } = req.user;
+      console.log(2);
+      await User.findByIdAndUpdate(id, {
         ...req.body,
+        avatar: req.file ? req.file.path : "",
       });
-
-      const searchLogin = await User.findOne({ login });
-
-      const searchEmail = await User.findOne({ email });
-      if (searchEmail) {
-        return res.json("Такой email уже существует");
-      } else if (searchLogin) {
-        return res.json("Такой логин уже существует");
-      }
-      res.json("Данные успешно изменены");
+      const user = await User.findOne({ _id: id });
+      res.json(user);
     } catch (error) {
       res.json({ error: error.toString() });
     }
@@ -138,6 +134,7 @@ module.exports.userController = {
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
+        image: user.avatar,
       });
     } catch (error) {
       res.json({ error: error.toString() });
