@@ -90,10 +90,9 @@ module.exports.userController = {
   editUser: async (req, res) => {
     try {
       const { id } = req.user;
-      console.log(2);
       await User.findByIdAndUpdate(id, {
         ...req.body,
-        avatar: req.file ? req.file.path : "",
+        avatar: req.file && req.file.path,
       });
       const user = await User.findOne({ _id: id });
       res.json(user);
