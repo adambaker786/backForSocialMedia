@@ -6,7 +6,6 @@ module.exports.savesController = {
       const saves = await Saves.find({ user: req.user.id })
         .populate("user")
         .populate("saves");
-      console.log(saves);
       res.status(201).json(saves);
     } catch (error) {
       res.status(401).json({ error });
