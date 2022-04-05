@@ -10,7 +10,7 @@ module.exports.postController = {
         imagePost: req.file ? req.file.path : "",
         text,
         user: req.user.id,
-      }).populate("user");
+      });
       res.status(201).json(post);
     } catch (error) {
       res.status(401).json({ error });
