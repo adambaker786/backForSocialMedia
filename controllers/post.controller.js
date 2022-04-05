@@ -10,7 +10,7 @@ module.exports.postController = {
         imagePost: req.file ? req.file.path : "",
         text,
         user: req.user.id,
-      });
+      }).populate("user");
       res.status(201).json(post);
     } catch (error) {
       res.status(401).json({ error });
@@ -36,7 +36,6 @@ module.exports.postController = {
       const post = await Post.findById(req.params.id).populate("user");
       const saves = await Saves.findOne({ user: req.user.id });
       const user = await User.findOne({ _id: req.user.id });
-      console.log(user);
       if (!post) {
         return res.status(401).json("ошибка");
       }
@@ -105,7 +104,7 @@ module.exports.postController = {
 
   getPostOneUser: async (req, res) => {
     try {
-      const postsUser = await Post.find({ user: req.params.id })
+      const postsUser = await Post.find({ user: req.user.id })
         .populate("user")
         .populate("likes");
       res.status(201).json(postsUser);
