@@ -91,8 +91,10 @@ module.exports.userController = {
     try {
       const { id } = req.user;
       await User.findByIdAndUpdate(id, {
-        ...req.body,
-        avatar: req.file && req.file.path,
+        $set: {
+          ...req.body,
+          avatar: req.file ? req.file.path : "",
+        },
       });
       const user = await User.findOne({ _id: id });
       res.json(user);
