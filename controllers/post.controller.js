@@ -6,6 +6,7 @@ module.exports.postController = {
   addPost: async (req, res) => {
     try {
       const { text } = req.body;
+      console.log(req.file);
       const post = await Post.create({
         imagePost: req.file ? req.file.path : "",
         text,
