@@ -11,6 +11,7 @@ module.exports = async (req, res, next) => {
       return res.status(401).json("неправильный тип токена");
     }
     req.user = await jwt.verify(token, process.env.SECRET_KEY);
+    console.log(req.user);
     next();
   } catch (err) {
     res.json({ error: err.toString() });

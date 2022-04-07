@@ -105,7 +105,8 @@ module.exports.postController = {
 
   getPostOneUser: async (req, res) => {
     try {
-      const postsUser = await Post.find({ user: req.user.id })
+      console.log(1);
+      const postsUser = await Post.find({ user: req.params.id })
         .populate("user")
         .populate("likes");
       res.status(201).json(postsUser);
