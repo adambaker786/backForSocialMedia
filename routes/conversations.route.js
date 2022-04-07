@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/auth.middleware")
 
 const router = Router()
 
-router.post("/conversation", authMiddleware, conversationControllers.postConversation)
+router.post("/conversation/:id", authMiddleware, conversationControllers.postConversation)
 router.get("/conversation", authMiddleware, conversationControllers.getConversation)
 
 module.exports = router
