@@ -139,6 +139,22 @@ module.exports.userController = {
       res.json({ error: error.toString() });
     }
   },
+  getUserId: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+
+      res.json({
+        user,
+        login: user.login,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        image: user.avatar,
+      });
+    } catch (error) {
+      res.json({ error: error.toString() });
+    }
+  },
 
   getUsers: async (req, res) => {
     try {
