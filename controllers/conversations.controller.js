@@ -4,7 +4,7 @@ module.exports.conversationControllers = {
   postConversation: async (req, res) => {
     try {
       const conversation = await Conversation.create({
-        members: [req.user.id, req.body.reciverId],
+        members: [req.user.id, req.params.id],
       });
       res.status(200).json(conversation);
     } catch (err) {
