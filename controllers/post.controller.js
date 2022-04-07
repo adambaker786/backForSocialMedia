@@ -6,7 +6,6 @@ module.exports.postController = {
   addPost: async (req, res) => {
     try {
       const { text } = req.body;
-      console.log(req.file);
       const post = await Post.create({
         imagePost: req.file ? req.file.path : "",
         text,
@@ -112,7 +111,6 @@ module.exports.postController = {
 
   getPostOneUser: async (req, res) => {
     try {
-      console.log(1);
       const postsUser = await Post.find({ user: req.params.id })
         .populate("user")
         .populate("likes");
