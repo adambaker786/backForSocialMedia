@@ -103,10 +103,15 @@ module.exports.userController = {
 
   addFreind: async (req, res) => {
     try {
+      const id = req.body.id.id;
       await User.findByIdAndUpdate(req.user.id, {
-        $addToSet: { freinds: req.body.id },
+        $addToSet: { follows: id },
       });
-      res.status(401).json("Предложение отправлено");
+      await User.findByIdAndUpdate(id, {
+        $addToSet: { freinds: req.user.id },
+      });
+      const user = await User.findById(req.user.id);
+      res.status(401).json(user);
     } catch (error) {
       res.json({ error: error.toString() });
     }
@@ -114,10 +119,15 @@ module.exports.userController = {
 
   removeFreind: async (req, res) => {
     try {
+      const id = req.body.id.id;
       await User.findByIdAndUpdate(req.user.id, {
-        $pull: { freinds: req.body.id },
+        $pull: { follows: id },
       });
-      res.status(401).json("Пользователь удален из друзей");
+      await User.findByIdAndUpdate(id, {
+        $pull: { freinds: req.user.id },
+      });
+      const user = await User.findById(req.user.id);
+      res.status(401).json(user);
     } catch (error) {
       res.json({ error: error.toString() });
     }
@@ -128,6 +138,7 @@ module.exports.userController = {
       const user = await User.findById(req.user.id);
 
       res.json({
+        user: user,
         id: req.user.id,
         login: user.login,
         firstname: user.firstname,

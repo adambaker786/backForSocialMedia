@@ -37,10 +37,9 @@ const userSchema = mongoose.Schema({
     default: "user",
   },
 
-  freinds: {
-    type: Object,
-    default: [],
-  },
+  freinds: [],
+
+  follows: [],
 
   registredDate: {
     type: String,
