@@ -26,8 +26,10 @@ module.exports.commentController = {
 
   getComments: async (req, res) => {
     try {
-      const comments = await Comment.find().populate("user");
-      res.status(201).json(comments);
+
+      const comments = await Comment.find({post: req.params.id});
+      res.json(comments);
+
     } catch (error) {
       res.status(401).json({ error: error.toString() });
     }
