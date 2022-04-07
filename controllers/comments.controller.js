@@ -27,7 +27,7 @@ module.exports.commentController = {
   getComments: async (req, res) => {
     try {
 
-      const comments = await Comment.find({post: req.params.id});
+      const comments = await Comment.find();
       res.json(comments);
 
     } catch (error) {
