@@ -20,6 +20,6 @@ router.patch(
   userController.editUser
 );
 router.patch("/add/freind", applyMiddleware, userController.addFreind);
-router.patch("/add/freind", applyMiddleware, userController.removeFreind);
+router.patch("/remove/freind", applyMiddleware, userController.removeFreind);
 
 module.exports = router;

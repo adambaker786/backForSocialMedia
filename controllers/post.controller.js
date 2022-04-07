@@ -42,7 +42,6 @@ module.exports.postController = {
       await Post.findByIdAndUpdate(post._id, {
         $addToSet: { likes: user._id },
       });
-      
 
       // await Saves.findByIdAndUpdate(saves._id, {
       //   $addToSet: { saves: post._id },
