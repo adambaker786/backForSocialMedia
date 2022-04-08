@@ -14,7 +14,7 @@ module.exports.conversationControllers = {
   getConversation: async (req, res) => {
     try {
       const conversation = await Conversation.find({
-        members: { $in: [req.user.id] },
+        members: { $in: [req.params.id] },
       }).populate("members");
       res.status(200).json(conversation);
     } catch (err) {

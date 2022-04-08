@@ -18,7 +18,8 @@ module.exports.messageControllers = {
     try {
       const messages = await Message.find({
         conversationId: req.params.id,
-      });
+      }).populate("sender");
+      
       res.status(200).json(messages);
     } catch (err) {
       res.status(500).json(err.toString());
