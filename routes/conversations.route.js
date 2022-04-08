@@ -5,6 +5,6 @@ const authMiddleware = require("../middlewares/auth.middleware")
 const router = Router()
 
 router.post("/conversation/:id", authMiddleware, conversationControllers.postConversation)
-router.get("/conversation", authMiddleware, conversationControllers.getConversation)
+router.get("/conversation/:id", conversationControllers.getConversation)
 
 module.exports = router
