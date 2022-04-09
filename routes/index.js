@@ -6,6 +6,7 @@ const importComments = require("./comments.route");
 const importConversation = require("./conversations.route");
 const importMessage = require("./messages.route");
 const importSaves = require("./saves.route");
+const importAdmin = require("./admin.route");
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use(importComments);
 router.use(importConversation);
 router.use(importMessage);
 router.use(importSaves);
+router.use(importAdmin);
 
 module.exports = router;
