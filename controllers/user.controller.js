@@ -2,6 +2,8 @@ const User = require("../models/User.model");
 const Saves = require("../models/Saves.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Post = require("../models/Posts.model");
+const Comment = require("../models/Comments.model");
 
 module.exports.userController = {
   registerUser: async (req, res) => {
@@ -171,6 +173,17 @@ module.exports.userController = {
     try {
       const users = await User.find();
       res.json(users);
+    } catch (error) {
+      res.json({ error: error.toString() });
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      await Post.deleteMany({ user: req.params.id });
+      await Comment.deleteMany({ user: req.params.id });
+      res.json("Пользователь успешно заблокирован");
     } catch (error) {
       res.json({ error: error.toString() });
     }
