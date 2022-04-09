@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Post = require("../models/Posts.model");
 const Comment = require("../models/Comments.model");
+const Message = require("../models/Message.model");
+const Conversation = require("../models/Conversation.model");
 
 module.exports.userController = {
   registerUser: async (req, res) => {
@@ -183,6 +185,8 @@ module.exports.userController = {
       await User.findByIdAndDelete(req.params.id);
       await Post.deleteMany({ user: req.params.id });
       await Comment.deleteMany({ user: req.params.id });
+      await Message.deleteMany({ sender: req.params.id });
+      await Conversation.deleteMany({ members: req.params.id });
       res.json("Пользователь успешно заблокирован");
     } catch (error) {
       res.json({ error: error.toString() });
