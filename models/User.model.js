@@ -37,9 +37,17 @@ const userSchema = mongoose.Schema({
     default: "user",
   },
 
-  freinds: [],
+  freinds: [{
+    ref: "User",
+    type: mongoose.Schema.Types.ObjectId
+  }],
 
-  follows: [],
+  follows: [
+    {
+      ref: "User",
+      type: mongoose.Schema.Types.ObjectId
+    }
+  ],
 
   registredDate: {
     type: String,
