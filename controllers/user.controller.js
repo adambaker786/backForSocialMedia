@@ -96,7 +96,7 @@ module.exports.userController = {
       const { id } = req.user;
       await User.findByIdAndUpdate(id, {
         ...req.body,
-        avatar: req.file ? req.file.path : "",
+        avatar: req.file && req.file.path,
       });
       const user = await User.findOne({ _id: id });
       res.json(user);
@@ -139,7 +139,9 @@ module.exports.userController = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User.findById(req.user.id).populate("freinds").populate("follows");
+      const user = await User.findById(req.user.id)
+        .populate("freinds")
+        .populate("follows");
 
       res.json({
         user: user,
@@ -156,7 +158,9 @@ module.exports.userController = {
   },
   getUserId: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id).populate("freinds").populate("follows");
+      const user = await User.findById(req.params.id)
+        .populate("freinds")
+        .populate("follows");
 
       res.json({
         user,
