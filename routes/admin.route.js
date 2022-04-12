@@ -9,7 +9,11 @@ const router = Router();
 router.patch("/admin/user/:id", applyMiddleware, userController.editUser);
 
 router.delete("/admin/user/:id", applyMiddleware, userController.deleteUser);
-router.delete("/post/:id", applyMiddleware, postController.deletePost);
-router.delete("/comment/:id", applyMiddleware, commentController.deleteComment);
+router.delete("/admin/post/:id", applyMiddleware, postController.deletePost);
+router.delete(
+  "/admin/comment/:id",
+  applyMiddleware,
+  commentController.deleteComment
+);
 
 module.exports = router;
