@@ -19,7 +19,7 @@ router.patch(
   avatarLoadMiddleware.single("image"),
   userController.editUser
 );
-router.patch("/add/freind", applyMiddleware, userController.addFreind);
-router.patch("/remove/freind", applyMiddleware, userController.removeFreind);
+router.patch("/add/freind/:id", userController.addFreind);
+router.patch("/remove/freind/:id", userController.removeFreind);
 
 module.exports = router;

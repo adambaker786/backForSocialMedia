@@ -108,13 +108,14 @@ module.exports.userController = {
   addFreind: async (req, res) => {
     try {
       const id = req.body.id.id;
-      await User.findByIdAndUpdate(req.user.id, {
+      await User.findByIdAndUpdate(req.params.id, {
         $addToSet: { follows: id },
       });
       await User.findByIdAndUpdate(id, {
-        $addToSet: { freinds: req.user.id },
+        $addToSet: { freinds: req.params.id },
       });
-      const user = await User.findById(req.user.id);
+      const user = await User.findById(req.params.id);
+      console.log(1);
       res.status(401).json(user);
     } catch (error) {
       res.json({ error: error.toString() });
@@ -124,13 +125,13 @@ module.exports.userController = {
   removeFreind: async (req, res) => {
     try {
       const id = req.body.id.id;
-      await User.findByIdAndUpdate(req.user.id, {
+      await User.findByIdAndUpdate(req.params.id, {
         $pull: { follows: id },
       });
       await User.findByIdAndUpdate(id, {
-        $pull: { freinds: req.user.id },
+        $pull: { freinds: req.params.id },
       });
-      const user = await User.findById(req.user.id);
+      const user = await User.findById(req.params.id);
       res.status(401).json(user);
     } catch (error) {
       res.json({ error: error.toString() });
