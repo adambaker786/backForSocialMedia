@@ -43,9 +43,9 @@ module.exports.postController = {
         $addToSet: { likes: user._id },
       });
 
-      // await Saves.findByIdAndUpdate(saves._id, {
-      //   $addToSet: { saves: post._id },
-      // });
+      await Saves.findByIdAndUpdate(saves._id, {
+        $addToSet: { saves: post._id },
+      });
 
       const post1 = await Post.findById(req.params.id).populate("user");
 
@@ -69,9 +69,9 @@ module.exports.postController = {
         $pull: { likes: user._id },
       });
 
-      // await Saves.findByIdAndUpdate(saves._id, {
-      //   $pull: { saves: post._id },
-      // });
+      await Saves.findByIdAndUpdate(saves._id, {
+        $pull: { saves: post._id },
+      });
 
       res.status(201).json(post);
     } catch (error) {
